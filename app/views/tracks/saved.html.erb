@@ -1,0 +1,44 @@
+
+<div class="container margin-top-20">
+	<div>
+		<a href="<%= index_path %>" class="btn btn-info">
+			<span class="glyphicon glyphicon-menu-left"></span>
+			Back
+		</a>
+	</div>
+
+	<div id="song-container">
+    <% @tracks.each do |track| %>
+		<!--One Song-->
+		<div class="row margin-top-20 one-song">
+			<div class="col-sm-3">
+				<img src="<%= track[:image_url] %>" class="img-responsive" />
+			</div>
+			<div class="col-sm-9">
+				<h2><%= track[:title]%></h2>
+				<p>
+					By <%= track[:artist] %>
+				</p>
+				<p>
+					Album: <%= track[:album] %>
+				</p>
+				<div class="margin-top-20">
+					<audio controls>
+						<source src="<%= track[:preview_url] %>" type="audio/mpeg">
+					</audio>
+				</div>
+				<%= track[:track_id] %>
+				<% if session[:spotify_access_token] %>
+				<div class="margin-top-20">
+					<button type="submit" class="btn btn-danger btn-sm">
+						<span class="glyphicon glyphicon-remove margin-right-5"></span>
+						<%= link_to "Remove Track", remove_track_path(track_id: track[:track_id]), method: "DELETE" %>
+					</button>
+				</div>
+				<% end %>
+			</div>
+		</div>
+		<!--/One Song-->
+		<% end %>
+	</div>
+</div>
